@@ -12,3 +12,4 @@ senti_model/dictionary/*
 senti_model/samples/*
 senti_model/models/*
 Resources/*
+*.txt
