@@ -5,7 +5,7 @@
 * reprocess.py
 로 구성되어 있습니다.
 
-### dictionary.py
+### *dictionary.py
 크롤링한 네이버 영화 리뷰를 분류하고, 감정 사전을 만들기 위한 코드입니다.
 
 #### Description
@@ -20,7 +20,7 @@
 #### Requirement
 dictionary.py는 **Python3**를 통해 실행해야 합니다.
 
-### reprocess.py
+### *reprocess.py
 json형태의 리뷰 데이터를 txt 형태로 변환합니다.
 이 때, 부정적, 긍정적이 아닌 리뷰는 제외합니다.
 

@@ -1,4 +1,4 @@
-** MEDIA PROJECT
+## MEDIA PROJECT
 201220899 안남혁, 201221078 이상란
 
 ### review_crawl
