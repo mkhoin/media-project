@@ -1,6 +1,9 @@
 # OSX
 .DS_Store
 
+# python
+*.pyc
+
 # resource directory
 news_crawler/base/*
 news_crawler/data/*
