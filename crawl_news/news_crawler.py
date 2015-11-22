@@ -2,6 +2,9 @@ import requests
 import time
 from bs4 import BeautifulSoup
 
+#my python file
+import classifier as cf
+
 # load baseURL in text file
 def load_baseURL():
 	base_list = []
@@ -149,8 +152,9 @@ def entertain_context( URLs ):
 			# get article
 			text = soup.find(id="articeBody").get_text().replace("\n", "")
 			article.append(text.split("@")[0])
+			print(title[len(title)-1])
 		except AttributeError as ae:
-			print(URL)
+			print("ERROR: {!s:s}\n" .format(URL))
 
 	return title, article
 
@@ -170,8 +174,9 @@ def sports_context( URLs ):
 			# get article
 			text = soup.find(id="naver_news_20080201_div").get_text().replace("\n", "")
 			article.append(text.split("@")[0])
+			print(title[len(title)-1])
 		except AttributeError as ae:
-			print(URL)
+			print("ERROR: {!s:s}\n" .format(URL))
 
 	return title, article
 
@@ -192,6 +197,7 @@ def news_context( URLs ):
 			# get article
 			text = soup.find(id="articleBodyContents").get_text().replace("\n", "")
 			article.append(text.split("@")[0])
+			print(title[len(title)-1])
 		except AttributeError as ae:
 			try:
 				# get title
@@ -200,7 +206,8 @@ def news_context( URLs ):
 				# get article
 				text = soup.find(id="articeBody").get_text().replace("\n", "")
 				article.append(text.split("@")[0])
+				print(title[len(title)-1])
 			except AttributeError as ae:
-				print(URL)	
+				print("ERROR: {!s:s}\n" .format(URL))
 
 	return title, article

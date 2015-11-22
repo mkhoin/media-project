@@ -5,6 +5,7 @@ from sklearn import preprocessing
 
 # my python file
 import utils
+import model
 
 
 class classifier():
