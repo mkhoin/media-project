@@ -13,3 +13,6 @@ senti_model/samples/*
 senti_model/models/*
 Resources/*
 *.txt
+
+# etc
+*.swp
