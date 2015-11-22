@@ -23,8 +23,8 @@ def load_reviews( name ):
 
 
 def load_dictionary():
-	csv_pos = open("./dictionary/POS_v1.csv", "r")
-	csv_neg = open("./dictionary/NEG_v1.csv", "r")
+	csv_pos = open("../Resources/dictionary/POS_v1.csv", "r")
+	csv_neg = open("../Resources/dictionary/NEG_v1.csv", "r")
 	
 	# load dictionary from csv file
 	read_pos = csv.reader(csv_pos)

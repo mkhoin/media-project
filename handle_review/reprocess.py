@@ -9,7 +9,7 @@ def export_txt(fname, data):
 
 
 if __name__ == "__main__":
-	raw = dc.parse_json("./review/review_2.json")
+	raw = dc.parse_json("../Resources/review/review_2.json")
 	
 	review_pos = []
 	review_neg = []
@@ -18,7 +18,7 @@ if __name__ == "__main__":
 		if   r[0] > 8: review_pos.append(r[1])
 		elif r[0] < 3: review_neg.append(r[1])
 
-	export_txt("./review/review_pos", review_pos)
-	export_txt("./review/review_neg", review_neg)
+	export_txt("../Resources/review/review_pos", review_pos)
+	export_txt("../Resources/review/review_neg", review_neg)
 
 

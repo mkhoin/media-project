@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
 	# load model if exist
 	try:
-		with open("./models/model", "rb") as model_file:
+		with open("../Resources/models/model", "rb") as model_file:
 			model = pickle.load(model_file)
 	except IOError as err:
 		# load training reviews from file	
@@ -162,21 +162,21 @@ if __name__ == "__main__":
 		# train model
 		model.train(train_data, train_label)
 		#save model
-		with open("./models/model", "wb") as model_file:
+		with open("../Resources/models/model", "wb") as model_file:
 			pickle.dump(model, model_file)
 	else:
 		print("use saved model..")
 	
 	# load test reviews from file
-	#test_review  = utils.load_reviews("./samples/test_data")
+	test_review  = utils.load_reviews("../Resources/samples/test_data")
 	# get feature from test data
-	#test_data, test_label = feature_data(tagger, exp, bag, test_review)
+	test_data, test_label = feature_data(tagger, exp, bag, test_review)
 	
 	# predict model
-	result = model.predict(train_data)
+	result = model.predict(test_data)
 
 	# evaluate accuracy
-	evaluate_model(result, train_label)
+	evaluate_model(result, test_label)
 
 	with open("fault", "w") as ff:
 		for i, v in enumerate(train_data):

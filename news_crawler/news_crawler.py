@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 def load_baseURL():
 	base_list = []
 	read_list = []
-	with open("./base/baseURL.txt", "r") as base:
+	with open("../Resources/base/baseURL.txt", "r") as base:
 		while True: 
 			line = base.readline()
 			if not line: break
@@ -14,7 +14,7 @@ def load_baseURL():
 			line = line.replace('\n', '')
 			base_list.append(line)
 
-	with open("./base/readURL.txt", "r") as read:
+	with open("../Resources/base/readURL.txt", "r") as read:
 		while True: 
 			line = read.readline()
 			if not line: break

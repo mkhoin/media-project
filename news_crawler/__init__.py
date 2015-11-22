@@ -4,7 +4,7 @@ import news_crawler as nc
 # save articles to file
 def to_file( date, section, URL, context ):
 	# make directory if not founded
-	base_loc = os.path.abspath("./data/" + date)
+	base_loc = os.path.abspath("../Resources/data/" + date)
 	if not os.path.exists(base_loc): 
 		os.mkdir(base_loc)
 
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 	
 	# get section list
 	section = []
-	with open("./base/section.txt", "r") as f:
+	with open("../Resources/base/section.txt", "r") as f:
 		while True:
 			line = f.readline()
 			if not line: break
