@@ -1,0 +1,10 @@
+# OSX
+.DS_Store
+
+# resource directory
+news_crawler/base/*
+news_crawler/data/*
+handle_review/review/*
+senti_model/dictionary/*
+senti_model/samples/*
+senti_model/models/*
