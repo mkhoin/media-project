@@ -1,5 +1,6 @@
 import requests
-import time
+import time, re
+import urllib
 from bs4 import BeautifulSoup
 
 #my python file
@@ -57,8 +58,8 @@ def entertain_URL(base, read, date):
 			else: 		    URL[i] = read + v
 		all_URL.extend(URL)
 
-		# sleep 0.5 sec for avoid NAVER's block
-		time.sleep(0.5)
+		# sleep 0.3 sec for avoid NAVER's block
+		time.sleep(0.3)
 		page += 1
 
 	return all_URL
@@ -94,8 +95,8 @@ def sports_URL(base, read, date):
 			else: 		    URL[i] = read + v
 		all_URL.extend(URL)
 
-		# sleep 0.5 sec for avoid NAVER's block
-		time.sleep(0.5)
+		# sleep 0.3 sec for avoid NAVER's block
+		time.sleep(0.3)
 		page += 1
 
 	return all_URL
@@ -106,7 +107,7 @@ def news_URL(base, date):
 	all_URL = []
 	prev_URL = [] # contain URL of previous page to check last page
 	page = 1
-
+	
 	while True:
 		URL = []
 
@@ -130,8 +131,8 @@ def news_URL(base, date):
 		all_URL.extend(URL)
 		prev_URL = URL
 
-		# sleep 0.5 sec for avoid NAVER's block
-		time.sleep(0.5)
+		# sleep 0.3 sec for avoid NAVER's block
+		time.sleep(0.3)
 		page += 1
 	
 	return all_URL
@@ -144,11 +145,13 @@ def entertain_context( URLs ):
 		# request to URL	
 		ret = requests.get(URL)
 		soup = BeautifulSoup(ret.text)
-	
+
 		try:
 			# get title
 			for c in soup.find_all("p"):
-				if c.get("class") == ["end_tit"]: title.append(c.get_text())
+				if c.get("class") == ["end_tit"]: 
+					title.append(c.get_text().strip())		
+
 			# get article
 			text = soup.find(id="articeBody").get_text().replace("\n", "")
 			article.append(text.split("@")[0])
@@ -170,7 +173,9 @@ def sports_context( URLs ):
 		try:
 			# get title
 			for c in soup.find_all("h4"):
-				if c.get("class") == ["tit_article"]: title.append(c.get_text())
+				if c.get("class") == ["tit_article"]: 
+					title.append(c.get_text().strip())
+			
 			# get article
 			text = soup.find(id="naver_news_20080201_div").get_text().replace("\n", "")
 			article.append(text.split("@")[0])
@@ -181,7 +186,7 @@ def sports_context( URLs ):
 	return title, article
 
 
-def news_context( URLs ):
+def news_context( URLs):
 	article = []
 	title   = []
 	for URL in URLs:
@@ -189,25 +194,15 @@ def news_context( URLs ):
 		ret = requests.get(URL)
 		soup = BeautifulSoup(ret.text)
 
-		# 기사 섹션이 바뀌는 일이 있어서 (culture -> entertain) 
-		# 그 경우 예외 처리
 		try:
 			# get title
-			title.append(soup.find(id="articleTitle").get_text())
+			title.append(soup.find(id="articleTitle").get_text().strip())
+			
 			# get article
 			text = soup.find(id="articleBodyContents").get_text().replace("\n", "")
 			article.append(text.split("@")[0])
 			print(title[len(title)-1])
 		except AttributeError as ae:
-			try:
-				# get title
-				for c in soup.find_all("p"):
-					if c.get("class") == ["end_tit"]: title.append(c.get_text())
-				# get article
-				text = soup.find(id="articeBody").get_text().replace("\n", "")
-				article.append(text.split("@")[0])
-				print(title[len(title)-1])
-			except AttributeError as ae:
-				print("ERROR: {!s:s}\n" .format(URL))
+			print("ERROR: {!s:s}\n" .format(URL))
 
 	return title, article

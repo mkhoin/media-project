@@ -48,7 +48,7 @@ def classify( classifier, article ):
 		
 
 if __name__ == "__main__":
-	date = "2015-11-19"
+	date = "2015-11-21"
 	baseURL, readURL = nc.load_baseURL()
 	section = load_section()
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 		if i == 0:   news_URL.append(nc.entertain_URL(baseURL[0], readURL[0], date))
 		elif i == 1: news_URL.append(nc.sports_URL(baseURL[1], readURL[1], date))
 		else:		 news_URL.append(nc.news_URL(baseURL[i], date))
-		
+	
 	classifier = cf.classifier()
 	
 	# get article context
