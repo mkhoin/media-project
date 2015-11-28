@@ -6,10 +6,10 @@ base_loc = "../Resources/community/"
 if __name__ == "__main__":
 	global base_loc, section
 
-	topic = "인분 교수"
+	topic = "송승준"
 	
 	cc = crawl_community()
-	context = cc.crawl(topic, scroll = 1)
+	context = cc.crawl(topic, scroll = 20)
 
 	loc = base_loc + topic
 	if not os.path.exists(loc): os.mkdir(loc)

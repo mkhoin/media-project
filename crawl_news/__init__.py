@@ -48,7 +48,7 @@ def classify( classifier, article ):
 		
 
 if __name__ == "__main__":
-	date = "2015-11-21"
+	date = "2015-11-28"
 	baseURL, readURL = nc.load_baseURL()
 	section = load_section()
 

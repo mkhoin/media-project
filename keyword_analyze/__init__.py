@@ -1,25 +1,24 @@
 import util
 from keyword_anaylze import keyword_anaylze
 
-date  = "2015-11-22"
+date  = "2015-11-28"
 topic_loc = "../Resources/topic/"
 
 if __name__ == "__main__":
 	global topic_loc
 	global date
 
-	topic = util.load_file(topic_loc+date+"/rank")
+	topic = util.load_file("topic.txt")
 
 	ka = keyword_anaylze(date)
-	senti, net, news = ka.anaylze("김영삼")
+	senti, news, network = ka.anaylze(topic[0])
 
-	print("{0} : {1}" .format(senti[1], senti[0]))
-	print(news)
-	for v in net:
-		rt = v[1][2] / (v[1][1] + v[1][2])
-		print("{0} : {1} {2}" .format(v[0], v[1][2], v[1][1]))
+	print("{0:.1f}% ({1})" .format(senti[1]/(senti[1]+senti[0])*100, (senti[1]+senti[0])))
+	
+	for n in news:
+		print(n[1])
+		print(n[2])
 
-
-	# TODO
-	# PMI, 트와이스, 새누리당 
-	# 검색어 뭐로 할지 결정
+	print("[word, senti, frequency, PMI]")
+	for n in network:
+		print("[{0}, {1:.1f}%, {2}, {3:.4f}]" .format(n[0], n[1]*100, n[2], n[3]))
