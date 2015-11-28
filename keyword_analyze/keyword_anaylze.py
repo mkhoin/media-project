@@ -9,13 +9,6 @@ news_loc = "../Resources/news/"
 community_loc = "../Resources/community/"
 
 class keyword_anaylze():
-	temp_net = {}
-	temp_list = {}
-	word_net = []	   # relative word and its frequency
-	word_list = []	   # total word and its frequency (using for PMI)
-	news = []		   # top # of news
-	sentiment = [0, 0] # [neg, pos]
-
 	def __init__( self, date, news_limit = 5, net_limit = 50 ):
 		self.section = util.load_file("section.txt")
 		self.date = date
@@ -25,8 +18,15 @@ class keyword_anaylze():
 
 		self.mecab = Mecab()
 		self.exp = re.compile("NN|XR|VA|VV|MAG|VX")
-
 		
+		self.temp_net = {}
+		self.temp_list = {}
+		self.word_net = []	   # relative word and its frequency
+		self.word_list = []	   # total word and its frequency (using for PMI)
+		self.news = []		   # top # of news
+		self.sentiment = [0, 0] # [neg, pos]
+
+
 	def _add_news( self, context, url, title ):
 		if len(self.news) < self.news_limit:
 			self.news.append([len(context), url, title])

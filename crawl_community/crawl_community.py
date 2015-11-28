@@ -3,16 +3,20 @@
 import time
 import requests
 import classifier as cf
+import utils
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from konlpy.tag import Mecab
 
 class crawl_community():
-	URLs = []
-	contexts = []
-
 	def __init__( self ):
 		self.driver = webdriver.Firefox()
 		self.classifier = cf.classifier()
+		self.URLs = []
+		self.contexts = []
+
+		self.bag = utils.load_dictionary()
+		self.tagger = Mecab()
 
 	
 	def __del__( self ):
@@ -61,6 +65,20 @@ class crawl_community():
 		return titles
 
 
+	def _exclude_short( self, text ):
+		pos = self.tagger.pos(text)
+		words = [ p[0] for p in pos ]
+
+		is_in = False
+		for b in self.bag[0]:
+			if b[0] in words: is_in = True
+
+		for b in self.bag[1]:
+			if b[0] in words: is_in = True
+
+		return not is_in
+
+
 	def _crawl_dcinside( self, url, title ):
 		ret = requests.get(url)
 		soup = BeautifulSoup(ret.text)
@@ -69,9 +87,11 @@ class crawl_community():
 			if c.get("class") == ["s_write"]:
 				text = c.find_all("td")[0].get_text()
 				text = text.strip().replace("\n", " ")
-				self.contexts.append(["dcinside", title, text])
+				
+				exclude = self._exclude_short(text)
+				if not exclude: self.contexts.append(["dcinside", title, text])
 
-
+	"""
 	def _crawl_mlbpark( self, url, title ):
 		ret = requests.get(url)
 		soup = BeautifulSoup(ret.text)
@@ -81,8 +101,11 @@ class crawl_community():
 				div = c.find_all("div")[0]
 				text = div.get_text()
 				text = text.strip().replace("\n", " ")
-				self.contexts.append(["mlbpark", title, text])
+				
+				exclude = self._exclude_short(text)
+				if not exclude: self.contexts.append(["mlbpark", title, text])
 				break
+	"""
 
 
 	def _crawl_twitter( self, url, title ):
@@ -93,7 +116,9 @@ class crawl_community():
 			tag = c.get("class")
 			if tag and "tweet-text" in tag:
 				text = c.get_text().strip().replace("\n", " ")
-				self.contexts.append(["twitter", title, text])
+
+				exclude = self._exclude_short(text)
+				if not exclude : self.contexts.append(["twitter", title, text])
 
 
 	def _crawl_todayhumor( self, url, title ):
@@ -103,9 +128,12 @@ class crawl_community():
 		for c in soup.find_all("div"):
 			if c.get("class") == ["viewContent"]:
 				text = c.get_text().strip().replace("\n", " ")
-				self.contexts.append(["todayhumor", title, text])
+
+				exclude = self._exclude_short(text)
+				if not exclude: self.contexts.append(["todayhumor", title, text])
 
 
+	"""
 	def _crawl_clien( self, url, title ):
 		ret = requests.get(url)
 		soup = BeautifulSoup(ret.text)
@@ -113,7 +141,7 @@ class crawl_community():
 		c = soup.find(id="writeContents")
 		if c: 
 			text = c.get_text().strip().replace("\n", " ")
-			self.contexts.append(["clien", title, text])
+			if self._exclude_short: self.contexts.append(["clien", title, text])
 
 
 	def _crawl_bobaedream( self, url, title ):
@@ -123,8 +151,8 @@ class crawl_community():
 		for c in soup.find_all("div"):
 			if c.get("class") == ["bodyCont"]:
 				text = c.get_text().strip().replace("\n", " ")
-				self.contexts.append(["bobaedream", title, text])
-
+				if self._exclude_short: self.contexts.append(["bobaedream", title, text])
+	"""
 
 	def _crawl_fomos( self, url, title ):
 		ret = requests.get(url)
@@ -133,7 +161,9 @@ class crawl_community():
 		for c in soup.find_all("div"):
 			if c.get("class") == ["view_text"]:
 				text = c.get_text().strip().replace("\n", " ")
-				self.contexts.append(["fomos", title, text])
+
+				exclude = self._exclude_short(text)
+				if not exclude: self.contexts.append(["fomos", title, text])
 				break
 
 
@@ -144,7 +174,9 @@ class crawl_community():
 		for c in soup.find_all("div"):
 			if c.get("class") == ["powerbbsContent"]:
 				text = c.get_text().strip().replace("\n", " ")
-				self.contexts.append(["inven", title, text])
+
+				exclude = self._exclude_short(text)
+				if not exclude: self.contexts.append(["inven", title, text])
 
 
 	def _crawl_instiz( self, url, title ):
@@ -154,7 +186,9 @@ class crawl_community():
 		c = soup.find(id="memo_content_1")
 		if c:
 			text = c.get_text().strip().replace("\n", " ")
-			self.contexts.append(["instiz", title, text])
+
+			exclude = self._exclude_short(text)
+			if not exclude: self.contexts.append(["instiz", title, text])
 
 
 	def _crawl_ppomppu( self, url, title ):
@@ -164,7 +198,9 @@ class crawl_community():
 		for c in soup.find_all("td"):
 			if c.get("class") == ["han"]:
 				text = c.get_text().strip().replace("\n", " ")
-				self.contexts.append(["ppomppu", title, text])
+
+				exclude = self._exclude_short(text)
+				if not exclude: self.contexts.append(["ppomppu", title, text])
 
 
 	# determine which URL comes from
