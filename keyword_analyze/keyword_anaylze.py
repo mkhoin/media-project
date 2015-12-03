@@ -25,6 +25,7 @@ class keyword_anaylze():
 		self.word_list = []	   # total word and its frequency (using for PMI)
 		self.news = []		   # top # of news
 		self.sentiment = [0, 0] # [neg, pos]
+		self.counter = [ 0 for i in range(16) ]
 
 
 	def _add_news( self, context, url, title ):
@@ -76,8 +77,6 @@ class keyword_anaylze():
 	def _traverse_news( self, keyword ):
 		global news_loc
 
-		match = 0
-	
 		keyword_list = keyword.split(" ")
 		for s in self.section:
 			idx = 0
@@ -104,7 +103,7 @@ class keyword_anaylze():
 					if not have_word: is_key = False
 				
 				if is_key:
-					match += 1
+					self.counter[0+int(senti)] += 1
 					self.refer += 1
 					self.sentiment[int(senti)] += 1
 					self._add_news(context, url, title)
@@ -112,8 +111,6 @@ class keyword_anaylze():
 
 				idx += 1
 			
-		print(match)
-
 
 	def _traverse_community( self, keyword ):
 		global community_loc
@@ -139,7 +136,14 @@ class keyword_anaylze():
 			self._add_word(words, self.temp_list, senti)
 			self._add_word(words, self.temp_net, senti)
 
-		print(idx)
+			# determine community
+			if 	 comm == "dcinside":   self.counter[2+int(senti)] += 1
+			elif comm == "todayhumor": self.counter[4+int(senti)] += 1
+			elif comm == "twitter":    self.counter[6+int(senti)] += 1
+			elif comm == "fomos": 	   self.counter[8+int(senti)] += 1
+			elif comm == "inven":      self.counter[10+int(senti)] += 1
+			elif comm == "instiz":     self.counter[12+int(senti)] += 1
+			elif comm == "ppomppu":    self.counter[14+int(senti)] += 1
 
 
 	def _make_word_net( self ):
@@ -177,4 +181,4 @@ class keyword_anaylze():
 		# network = [ [word, senti, frequency, PMI] .. ] 
 		network = self._make_word_net()
 
-		return self.sentiment, self.news, network
+		return self.sentiment, self.news, network, self.counter
