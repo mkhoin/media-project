@@ -87,7 +87,8 @@ function createVisualization(json) {
       .attr("fill-rule", "evenodd")
       .style("fill", function(d) { return colors[d.name]; })
       .style("opacity", 1)
-      .on("mouseover", mouseover);
+      .on("mouseover", mouseover)
+      .on("click", mouseclick);
 
   // Add the mouseleave handler to the bounding circle.
   d3.select("#container").on("mouseleave", mouseleave);
@@ -98,6 +99,12 @@ function createVisualization(json) {
   // Get total size of the tree = value of root node from partition.
   totalSize = path.node().__data__.value;
  };
+
+ function mouseclick(d) {
+  to_url = "cloud.html?key=";
+  to_url = to_url.concat(key)
+  window.location.href = to_url;
+ }
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
