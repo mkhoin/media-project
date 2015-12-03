@@ -1,7 +1,7 @@
 import util
 from keyword_anaylze import keyword_anaylze
 
-date  = "2015-11-28"
+date  = "2015-12-02"
 topic_loc = "../Resources/topic/"
 result_loc = "../Resources/result/"
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
 		senti, news, network = ka.anaylze(tp)
 		
 		f = open(result_loc+tp, "w")
-		f.write("{0:.1f}% ({1})\n\n" .format(senti[1]/(senti[1]+senti[0])*100, (senti[1]+senti[0])))
+		f.write("{0:.1f}% (p:{1}, n:{2})\n\n" .format(senti[1]/(senti[1]+senti[0])*100, senti[1], senti[0]))
 		for n in news:
 			f.write("{0}\n{1}\n\n" .format(n[1], n[2]))
 

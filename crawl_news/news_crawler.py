@@ -59,7 +59,6 @@ def entertain_URL(base, read, date):
 		all_URL.extend(URL)
 
 		# sleep 0.3 sec for avoid NAVER's block
-		time.sleep(0.3)
 		page += 1
 
 	return all_URL
@@ -96,7 +95,6 @@ def sports_URL(base, read, date):
 		all_URL.extend(URL)
 
 		# sleep 0.3 sec for avoid NAVER's block
-		time.sleep(0.3)
 		page += 1
 
 	return all_URL
@@ -107,7 +105,7 @@ def news_URL(base, date):
 	all_URL = []
 	prev_URL = [] # contain URL of previous page to check last page
 	page = 1
-	
+
 	while True:
 		URL = []
 
@@ -127,12 +125,11 @@ def news_URL(base, date):
 			URL[i] = v
 
 		# check if last page
-		if prev_URL == URL: break;
+		if prev_URL == URL: break
 		all_URL.extend(URL)
 		prev_URL = URL
 
 		# sleep 0.3 sec for avoid NAVER's block
-		time.sleep(0.3)
 		page += 1
 	
 	return all_URL

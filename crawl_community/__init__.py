@@ -3,7 +3,7 @@ import os
 import utils
 from crawl_community import crawl_community
 
-date = "2015-11-28"
+date = "2015-12-02"
 base_loc = "../Resources/community/"
 topic_loc = "../Resources/topic/"
 

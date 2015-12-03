@@ -48,7 +48,7 @@ def classify( classifier, article ):
 		
 
 if __name__ == "__main__":
-	date = "2015-11-28"
+	date = "2015-12-02"
 	baseURL, readURL = nc.load_baseURL()
 	section = load_section()
 
@@ -58,9 +58,9 @@ if __name__ == "__main__":
 	news_URL = []	
 	for i in range(len(section)):
 		print("crawling URLs {!s:s}" .format(section[i]))
-		if i == 0:   news_URL.append(nc.entertain_URL(baseURL[0], readURL[0], date))
-		elif i == 1: news_URL.append(nc.sports_URL(baseURL[1], readURL[1], date))
-		else:		 news_URL.append(nc.news_URL(baseURL[i], date))
+		#if i == 0:   news_URL.append(nc.entertain_URL(baseURL[0], readURL[0], date))
+#if i == 0: news_URL.append(nc.sports_URL(baseURL[0], readURL[0], date))
+		news_URL.append(nc.news_URL(baseURL[i], date))
 	
 	classifier = cf.classifier()
 	
@@ -68,9 +68,9 @@ if __name__ == "__main__":
 	for i, v in enumerate(news_URL):
 		context = []
 		print("crawling article {!s:s}" .format(section[i]))
-		if i == 0:   context = nc.entertain_context(v)
-		elif i == 1: context = nc.sports_context(v)
-		else:        context = nc.news_context(v)
+		#if i == 0:   context = nc.entertain_context(v)
+		#if i == 0: context = nc.sports_context(v)
+		context = nc.news_context(v)
 
 		# classify article
 		predict = classify(classifier, context[1])
