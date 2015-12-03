@@ -1,9 +1,9 @@
-positive-pos_news,3
-positive-pos_comm-twitter,15
-positive-pos_comm-dcinside,22
-positive-pos_comm-todayhumor,1
-negative-neg_news,44
-negative-neg_comm-twitter,29
-negative-neg_comm-dcinside,51
-positive-pos_comm-instiz,7
-negative-neg_comm-etc,3
+Positive-Positive news,3
+Positive-Positive community-Twitter,15
+Positive-Positive community-Dcinside,22
+Positive-Positive community-Todayhumor,1
+Negative-Negative news,44
+Negative-Negative community-Twitter,29
+Negative-Negative community-Dcinside,51
+Negative-Negative community-Instiz,7
+Negative-Negative community-Others,3

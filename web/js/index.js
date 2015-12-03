@@ -10,16 +10,29 @@ var b = {
 
 // Mapping of step names to colors.
 var colors = {
-  "예산안": "#1a8cff",
-  "노영민": "#4da5ff",
+  "MAMA": "#1a8cff",
+  "주커버그": "#4da5ff",
   "로저스": "#80bfff",
-  "MAMA": "#b3d8ff",
-  "민중 총궐기": "#e5f2ff",
-  "의전원생": "#ff1a1a",
-  "자궁경부암": "#ff4d4d",
-  "김창렬": "#ff8080",
-  "주커버그": "#ffb3b3",
-  "박병호": "#ffe5e5"
+  "박병호": "#ffefef",
+  "자궁경부암": "#ffe5e5",
+  "예산안": "#ffc5c5",
+  "김창렬": "#ffb3b3",
+  "민중 총궐기": "#ff8080",
+  "노영민": "#ff4d4d",
+  "의전원생": "#ff1a1a"
+};
+
+var sentiment = {
+  "MAMA": 66.9,
+  "주커버그": 63.5,
+  "로저스": 52.5,
+  "박병호": 49.6,
+  "자궁경부암": 46.3,
+  "예산안": 30.6,
+  "김창렬": 23.4,
+  "민중 총궐기": 22.8,
+  "노영민": 19.8,
+  "의전원생": 14.8
 };
 
 // Total size of all segments; we set this later, after loading the data.
@@ -82,8 +95,11 @@ function createVisualization(json) {
       .on("mouseover", mouseover)
       .on("click", mouseclick);
 
-  d3.select("#percentage")
+  d3.select("#keyword")
       .text("어제의 신문");
+
+  d3.select("#r_text")
+  	  .style("visibility", "hidden");
 
   // Add the mouseleave handler to the bounding circle.
   d3.select("#container").on("mouseleave", mouseleave);
@@ -101,7 +117,7 @@ function createVisualization(json) {
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
 
-  var percentage = (100 * d.value / totalSize).toPrecision(3);
+  var percentage = sentiment[d.name];
   var percentageString = percentage + "%";
   if (percentage < 0.1) {
     percentageString = "< 0.1%";
@@ -111,12 +127,15 @@ function mouseover(d) {
       .text(percentageString);
 
   d3.select("#keyword")
-      .text(d.name)
+      .text(d.name);
+
+  d3.select("#r_text")
+  	   .style("visibility", "");
 
   d3.select("#explanation")
       .style("visibility", "");
 
-  d3.select("#keyword")
+  d3.select("#percentage")
       .style("visibility", "");
 
   var sequenceArray = getAncestors(d);
@@ -153,10 +172,13 @@ function mouseleave(d) {
               d3.select(this).on("mouseover", mouseover);
             });
 
-  d3.select("#percentage")
+  d3.select("#keyword")
       .text("어제의 신문")
 
-  d3.select("#keyword")
+  d3.select("#r_text")
+  	  .style("visibility", "hidden");
+
+  d3.select("#percentage")
       .style("visibility", "hidden");
 }
 

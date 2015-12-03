@@ -10,17 +10,17 @@ var b = {
 
 // Mapping of step names to colors.
 var colors = {
-  "positive": "#66ccff",
-  "negative": "#ff9966",
-  "pos_comm": "#87cefa",
-  "neg_comm": "#ff99ff",
-  "pos_news": "#ccff66",
-  "neg_news": "#ffc0cb",
-  "dcinside": "#ffc0cb",
-  "twitter": "#ffc0cb",
-  "todayhumor": "#ffc0cb",
-  "instiz": "#ffc0cb",
-  "etc": "#ffc0cb"
+  "Positive": "#66ccff",
+  "Positive news": "#ccff66",
+  "Positive community": "#87cefa",
+  "Negative": "#ff9966",
+  "Negative news": "#ffc0cb",
+  "Negative community": "#ff99ff",
+  "Dcinside": "#dcdfef",
+  "Twitter": "#abcabc",
+  "Todayhumor": "#f0ad1f",
+  "Instiz": "#12faca",
+  "Others": "#ffffcc"
 };
 
 // Total size of all segments; we set this later, after loading the data.
@@ -96,6 +96,9 @@ function createVisualization(json) {
   d3.select("#percentage")
       .text(key);
 
+  d3.select("#r_text")
+      .style("visibility", "hidden");
+
   // Get total size of the tree = value of root node from partition.
   totalSize = path.node().__data__.value;
  };
@@ -116,16 +119,38 @@ function mouseover(d) {
   }
 
   var label;
-  if     (d.name == "positive") label = "Positive sentiment";
-  else if(d.name == "negative") label = "Negative sentiment";
-  else if(d.name == "pos_comm") label = "Community of positive";
-  else if(d.name == "neg_comm") label = "Community of negative";
-  else if(d.name == "pos_news") label = "News of positive";
-  else if(d.name == "neg_news") label = "News of negative";
+  console.log(d.parent.name)
+  if (d.name == "Positive") 
+  {
+    label = "Positive sentiment";
+  }
+  else if(d.name == "Negative") 
+  {
+    label = "Negative sentiment";
+  }
+  else if(d.name == "Positive community") 
+  {
+    label = "Positive community";
+  }
+  else if(d.name == "Negative community") 
+  {
+    label = "Negative community";
+  }
+  else if(d.name == "Positive news") 
+  {
+    label = "Positive news";
+  }
+  else if(d.name == "Negative news") 
+  {
+    label = "Negative news";
+  }
   else label = d.name;
 
   d3.select("#percentage")
       .text(percentageString);
+
+  d3.select("#r_text")
+       .style("visibility", "");
 
   d3.select("#description")
       .text(label)
@@ -170,6 +195,9 @@ function mouseleave(d) {
             });
 
   d3.select("#description")
+      .style("visibility", "hidden");
+
+  d3.select("#r_text")
       .style("visibility", "hidden");
 
   d3.select("#keyword")
@@ -265,7 +293,7 @@ function drawLegend() {
 
   // Dimensions of legend item: width, height, spacing, radius of rounded rect.
   var li = {
-    w: 75, h: 30, s: 3, r: 3
+    w: 130, h: 35, s: 3, r: 3
   };
 
   var legend = d3.select("#legend").append("svg:svg")

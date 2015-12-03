@@ -19,7 +19,7 @@ body {
   width: 100px;
 }
 
-#sequence {
+#sequence2 {
   width: 600px;
   height: 70px;
 }
@@ -45,7 +45,7 @@ body {
 
 #explanation {
   position: absolute;
-  top: 260px;
+  top: 250px;
   left: 305px;
   width: 140px;
   text-align: center;

@@ -1,10 +1,10 @@
-positive-pos_news,98
-positive-pos_comm-twitter,66
-positive-pos_comm-dcinside,6
-positive-pos_comm-instiz,2
-positive-pos_comm-etc,4
-negative-neg_news,47
-negative-neg_comm-twitter,32
-negative-neg_comm-dcinside,4
-positive-pos_comm-instiz,2
-negative-neg_comm-etc,35
+Positive-Positive news,98
+Positive-Positive community-Twitter,66
+Positive-Positive community-Dcinside,6
+Positive-Positive community-Instiz,2
+Positive-Positive community-Others,4
+Negative-Negative news,47
+Negative-Negative community-Twitter,32
+Negative-Negative community-Dcinside,4
+Negative-Negative community-Instiz,2
+Negative-Negative community-Others,35
