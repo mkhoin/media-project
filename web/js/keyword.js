@@ -49,7 +49,7 @@ var arc = d3.svg.arc()
 
 // Use d3.text and d3.csv.parseRows so that we do not need to have a header
 // row, and can receive the csv as an array of arrays.
-var csv_file = "./res/".concat(key);
+var csv_file = "./res/keyword/".concat(key);
 var csv_file = csv_file.concat(".csv");
 
 d3.text(csv_file, function(text) {
