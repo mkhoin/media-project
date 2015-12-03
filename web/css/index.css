@@ -2,7 +2,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   font-weight: 400;
-  background-color: #fff;
+  background-color: #000000;
+  color: #ffffff;
   width: 960px;
   height: 700px;
   margin-top: 10px;
@@ -24,16 +25,18 @@ body {
 }
 
 #legend {
+  margin-left: 250px;
   padding: 10px 0 0 3px;
 }
 
 #sequence text, #legend text {
   font-weight: 600;
-  fill: #fff;
+  fill: #000000;
 }
 
 #chart {
-  position: relative;
+  margin-left: 250px;
+  position: absolute;
 }
 
 #chart path {
@@ -52,8 +55,10 @@ body {
 
 #percentage {
   font-size: 2.5em;
+  color: #ffffff;
 }
 
 #keyword {
   font-size: 2em;
+  color: #ffffff;
 }

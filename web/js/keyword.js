@@ -19,6 +19,7 @@ var colors = {
   "dcinside": "#ffc0cb",
   "twitter": "#ffc0cb",
   "todayhumor": "#ffc0cb",
+  "instiz": "#ffc0cb",
   "etc": "#ffc0cb"
 };
 
@@ -48,7 +49,10 @@ var arc = d3.svg.arc()
 
 // Use d3.text and d3.csv.parseRows so that we do not need to have a header
 // row, and can receive the csv as an array of arrays.
-d3.text("./res/keyword.csv", function(text) {
+var csv_file = "./res/".concat(key);
+var csv_file = csv_file.concat(".csv");
+
+d3.text(csv_file, function(text) {
   var csv = d3.csv.parseRows(text);
   var json = buildHierarchy(csv);
   createVisualization(json);
@@ -88,6 +92,9 @@ function createVisualization(json) {
   // Add the mouseleave handler to the bounding circle.
   d3.select("#container").on("mouseleave", mouseleave);
 
+  d3.select("#percentage")
+      .text(key);
+
   // Get total size of the tree = value of root node from partition.
   totalSize = path.node().__data__.value;
  };
@@ -101,9 +108,6 @@ function mouseover(d) {
     percentageString = "< 0.1%";
   }
 
-  d3.select("#percentage")
-      .text(percentageString);
-
   var label;
   if     (d.name == "positive") label = "Positive sentiment";
   else if(d.name == "negative") label = "Negative sentiment";
@@ -113,13 +117,15 @@ function mouseover(d) {
   else if(d.name == "neg_news") label = "News of negative";
   else label = d.name;
 
-  d3.select("#keyword")
-      .text(key)
+  d3.select("#percentage")
+      .text(percentageString);
 
   d3.select("#description")
       .text(label)
+      .style("visibility", "");
 
-  d3.select("#explanation")
+  d3.select("#keyword")
+      .text(key)
       .style("visibility", "");
 
   var sequenceArray = getAncestors(d);
@@ -156,8 +162,14 @@ function mouseleave(d) {
               d3.select(this).on("mouseover", mouseover);
             });
 
-  d3.select("#explanation")
+  d3.select("#description")
       .style("visibility", "hidden");
+
+  d3.select("#keyword")
+      .style("visibility", "hidden");
+
+  d3.select("#percentage")
+      .text(key);
 }
 
 // Given a node in a partition layout, return an array of all of its ancestor

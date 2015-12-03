@@ -28,6 +28,7 @@ var totalSize = 0;
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", width)
     .attr("height", height)
+    .attr("align", "center")
     .append("svg:g")
     .attr("id", "container")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -81,6 +82,9 @@ function createVisualization(json) {
       .on("mouseover", mouseover)
       .on("click", mouseclick);
 
+  d3.select("#percentage")
+      .text("어제의 신문");
+
   // Add the mouseleave handler to the bounding circle.
   d3.select("#container").on("mouseleave", mouseleave);
 
@@ -110,6 +114,9 @@ function mouseover(d) {
       .text(d.name)
 
   d3.select("#explanation")
+      .style("visibility", "");
+
+  d3.select("#keyword")
       .style("visibility", "");
 
   var sequenceArray = getAncestors(d);
@@ -146,7 +153,10 @@ function mouseleave(d) {
               d3.select(this).on("mouseover", mouseover);
             });
 
-  d3.select("#explanation")
+  d3.select("#percentage")
+      .text("어제의 신문")
+
+  d3.select("#keyword")
       .style("visibility", "hidden");
 }
 
